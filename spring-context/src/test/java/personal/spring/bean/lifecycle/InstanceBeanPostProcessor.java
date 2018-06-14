@@ -42,11 +42,6 @@ public class InstanceBeanPostProcessor implements InstantiationAwareBeanPostProc
     @Override
     public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) throws BeansException {
         System.out.println("2.实例化bean之前调用,即调用bean类构造函数之前调用 " + beanClass.getName() + " beanName:" + beanName);
-//        try {
-//            return Class.forName("" + beanClass);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
         return null;
     }
 
