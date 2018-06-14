@@ -17,6 +17,7 @@ public class HelloWorld implements BeanNameAware, BeanFactoryAware, Initializing
     private String message;
 
     public HelloWorld() {
+        System.out.println("3.HelloWorld struct.......");
     }
 
     /**
