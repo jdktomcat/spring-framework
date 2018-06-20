@@ -14,7 +14,7 @@ public class SpringMvcController {
 
     @RequestMapping(value = "/test", method = {RequestMethod.GET})
     @ResponseBody
-    public String test(@RequestParam(value = "id", required = true) Integer id) {
+    public String test(@RequestParam(value = "id", required = false) Integer id) {
         return "mvctest";
     }
 
