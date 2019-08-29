@@ -44,8 +44,7 @@ import static org.junit.Assert.*;
  */
 public class AnnotationTransactionNamespaceHandlerTests {
 
-	private final ConfigurableApplicationContext context = new ClassPathXmlApplicationContext(
-			"org/springframework/transaction/annotation/annotationTransactionNamespaceHandlerTests.xml");
+	private final ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("org/springframework/transaction/annotation/annotationTransactionNamespaceHandlerTests.xml");
 
 	@After
 	public void tearDown() {
