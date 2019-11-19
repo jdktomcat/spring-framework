@@ -281,19 +281,15 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 	 * @throws Throwable propagated from the target invocation
 	 */
 	@Nullable
-	protected Object invokeWithinTransaction(Method method, @Nullable Class<?> targetClass,
-											 final InvocationCallback invocation) throws Throwable {
-
+	protected Object invokeWithinTransaction(Method method, @Nullable Class<?> targetClass, final InvocationCallback invocation) throws Throwable {
 		// If the transaction attribute is null, the method is non-transactional.
 		TransactionAttributeSource tas = getTransactionAttributeSource();
 		final TransactionAttribute txAttr = (tas != null ? tas.getTransactionAttribute(method, targetClass) : null);
 		final PlatformTransactionManager tm = determineTransactionManager(txAttr);
-		final String joinpointIdentification = methodIdentification(method, targetClass, txAttr);
-
+		final String joinPointIdentification = methodIdentification(method, targetClass, txAttr);
 		if (txAttr == null || !(tm instanceof CallbackPreferringPlatformTransactionManager)) {
 			// Standard transaction demarcation with getTransaction and commit/rollback calls.
-			TransactionInfo txInfo = createTransactionIfNecessary(tm, txAttr, joinpointIdentification);
-
+			TransactionInfo txInfo = createTransactionIfNecessary(tm, txAttr, joinPointIdentification);
 			Object retVal;
 			try {
 				// This is an around advice: Invoke the next interceptor in the chain.
@@ -310,11 +306,10 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			return retVal;
 		} else {
 			final ThrowableHolder throwableHolder = new ThrowableHolder();
-
 			// It's a CallbackPreferringPlatformTransactionManager: pass a TransactionCallback in.
 			try {
 				Object result = ((CallbackPreferringPlatformTransactionManager) tm).execute(txAttr, status -> {
-					TransactionInfo txInfo = prepareTransactionInfo(tm, txAttr, joinpointIdentification, status);
+					TransactionInfo txInfo = prepareTransactionInfo(tm, txAttr, joinPointIdentification, status);
 					try {
 						return invocation.proceedWithInvocation();
 					} catch (Throwable ex) {
@@ -334,7 +329,6 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 						cleanupTransactionInfo(txInfo);
 					}
 				});
-
 				// Check result state: It might indicate a Throwable to rethrow.
 				if (throwableHolder.throwable != null) {
 					throw throwableHolder.throwable;
