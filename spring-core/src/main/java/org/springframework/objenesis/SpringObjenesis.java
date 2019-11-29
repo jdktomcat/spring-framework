@@ -83,7 +83,7 @@ public class SpringObjenesis implements Objenesis {
 	 * been set to "true", this method returns {@code false}.
 	 */
 	public boolean isWorthTrying() {
-		return (this.worthTrying != Boolean.FALSE);
+		return (!this.worthTrying.equals(Boolean.FALSE));
 	}
 
 	/**
@@ -102,10 +102,12 @@ public class SpringObjenesis implements Objenesis {
 		return getInstantiatorOf(clazz).newInstance();
 	}
 
+	@Override
 	public <T> T newInstance(Class<T> clazz) {
 		return getInstantiatorOf(clazz).newInstance();
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <T> ObjectInstantiator<T> getInstantiatorOf(Class<T> clazz) {
 		ObjectInstantiator<?> instantiator = this.cache.get(clazz);
